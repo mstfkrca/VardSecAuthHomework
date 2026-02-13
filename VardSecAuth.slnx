@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="VardSecAuth.API/VardSecAuth.API.csproj" />
+  <Project Path="VardSecAuth.Core/VardSecAuth.Core.csproj" />
+  <Project Path="VardSecAuth.Data/VardSecAuth.Data.csproj" />
+  <Project Path="VardSecAuth.Service/VardSecAuth.Service.csproj" />
+</Solution>

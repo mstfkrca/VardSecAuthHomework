@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # SQL Server Container
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: vardsec-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Password123
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    networks:
+      - vardsec-network
+
+  # API Container
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vardsec-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=VardSecDb;User Id=sa;Password=YourStrong@Password123;TrustServerCertificate=True;
+      - Jwt__Key=bu_benim_cok_gizli_anahtarim_vardsce_icin_ozel_uretildi
+    ports:
+      - "8080:8080"
+    depends_on:
+      - sqlserver
+    networks:
+      - vardsec-network
+
+volumes:
+  sqlserver-data:
+
+networks:
+  vardsec-network:
+    driver: bridge
