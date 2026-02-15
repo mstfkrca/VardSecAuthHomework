@@ -16,7 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-n
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
